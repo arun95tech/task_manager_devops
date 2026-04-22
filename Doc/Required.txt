@@ -1,0 +1,13 @@
+Developer
+   ↓
+GitHub Repo
+   ↓
+Jenkins (CI Server)
+   ↓
+Docker Build
+   ↓
+Docker Image Registry (ECR/DockerHub)
+   ↓
+Kubernetes Cluster (AWS EKS)
+   ↓
+Microservices Running (Pods + Services)
