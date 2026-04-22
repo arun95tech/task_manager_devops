@@ -15,6 +15,8 @@
 - Arun: docker-compose.yml (all services connected)
 - Arun: created .gitignore
 - Talha: progress document updated
+- Arun: Jenkinsfile (4 stages: Checkout, Build, Test, Deploy)
+- Talha: progress document updated
 
 ### In Progress
 - Configure Jenkins
@@ -30,4 +32,4 @@
 - jenkins       → 8080
 
 ### Next Step
-- Phase 3: Arun please configure webhook for automated Jenkinsfile (CI/CD Pipeline)
+- Phase 3: connect jenkins to github (webhook)
