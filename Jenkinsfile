@@ -22,31 +22,23 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-                sh 'docker compose -f ${DOCKER_COMPOSE_FILE} build'
+                bat "docker compose -f %DOCKER_COMPOSE_FILE% build"
                 echo 'Docker images built successfully'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh '''
-                    docker compose -f ${DOCKER_COMPOSE_FILE} \
-                    run --rm user_service \
-                    python manage.py test
-                '''
-                sh '''
-                    docker compose -f ${DOCKER_COMPOSE_FILE} \
-                    run --rm task_service \
-                    python manage.py test
-                '''
+                bat "docker compose -f %DOCKER_COMPOSE_FILE% run --rm user_service python manage.py test"
+                bat "docker compose -f %DOCKER_COMPOSE_FILE% run --rm task_service python manage.py test"
                 echo 'All tests passed'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker compose -f ${DOCKER_COMPOSE_FILE} down'
-                sh 'docker compose -f ${DOCKER_COMPOSE_FILE} up -d'
+                bat "docker compose -f %DOCKER_COMPOSE_FILE% down"
+                bat "docker compose -f %DOCKER_COMPOSE_FILE% up -d"
                 echo 'All services deployed successfully'
             }
         }
