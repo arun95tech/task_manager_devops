@@ -2,17 +2,32 @@
 
 ------
 
-## Sprint 1 - (Done)
+## Done
 - GitHub repository created
 - Project folder structure created 
 - Branch strategy defined
+- Talha: Docs folder added for documentation
+- Talha: progress document added
+- All Team: DevOps Tool install and setup
+- Arun: user_service.Dockerfile (Port 8000)
+- Arun: task_service.Dockerfile (Port 8001)
+- Arun: frontend.Dockerfile (Nginx Port 80→3000)
+- Arun: docker-compose.yml (all services connected)
+- Arun: created .gitignore
+- Talha: progress document updated
 
-## Sprint 2 - (Done)
-- Docs folder added for documentation
-- First progress document added 
-> Who Did It
-- Talha
-
-### next step
-- DevOps Tool install and setup
+### In Progress
 - Configure Jenkins
+
+## DAY 1 — Phase 2 Complete
+*Date:* [TODAY'S DATE]
+
+### Ports Assigned
+- user_service  → 8000
+- task_service  → 8001
+- frontend      → 3000
+- postgres      → 5432
+- jenkins       → 8080
+
+### Next Step
+- Phase 3: Arun please configure webhook for automated Jenkinsfile (CI/CD Pipeline)
