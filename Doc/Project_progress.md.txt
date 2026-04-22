@@ -1,0 +1,18 @@
+# Task Management System - DevOps Project
+
+------
+
+## Sprint 1 - (Done)
+- GitHub repository created
+- Project folder structure created 
+- Branch strategy defined
+
+## Sprint 2 - (Done)
+- Docs folder added for documentation
+- First progress document added 
+> Who Did It
+- Talha
+
+### next step
+- DevOps Tool install and setup
+- Configure Jenkins
