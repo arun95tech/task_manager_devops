@@ -1,19 +1,66 @@
-// Jenkinsfile (Windows-compatible Declarative Pipeline)
-
 pipeline {
+
     agent any
+
+    environment {
+        PROJECT_NAME        = "task_manager"
+        DOCKER_COMPOSE_FILE = "docker/docker-compose.yml"
+    }
+
+    triggers {
+        pollSCM('* * * * *')
+    }
 
     stages {
 
-        stage('Build') {
+        stage('Checkout Code') {
             steps {
-                echo 'Welcome'
-
-                bat '''
-                    echo My testing file has been added to test the pipeline
-                    dir
-                '''
+                checkout scm
+                echo 'Code checkout complete'
             }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                sh 'docker compose -f ${DOCKER_COMPOSE_FILE} build'
+                echo 'Docker images built successfully'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh '''
+                    docker compose -f ${DOCKER_COMPOSE_FILE} \
+                    run --rm user_service \
+                    python manage.py test
+                '''
+                sh '''
+                    docker compose -f ${DOCKER_COMPOSE_FILE} \
+                    run --rm task_service \
+                    python manage.py test
+                '''
+                echo 'All tests passed'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'docker compose -f ${DOCKER_COMPOSE_FILE} down'
+                sh 'docker compose -f ${DOCKER_COMPOSE_FILE} up -d'
+                echo 'All services deployed successfully'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ PIPELINE SUCCESS — Application is live!'
+        }
+        failure {
+            echo '❌ PIPELINE FAILED — Check logs above!'
+        }
+        always {
+            cleanWs()
         }
     }
 }
