@@ -1,0 +1,103 @@
+# ============================================
+# docker/docker-compose.yml
+# WHO: Arun (DevOps Engineer)
+# PURPOSE: Run ALL services together
+# ============================================
+
+version: "3.9"
+
+services:
+
+  # ─────────────────────────────────────────
+  # USER SERVICE — Django (Auth/Login/Register)
+  # ─────────────────────────────────────────
+  user_service:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/user_service.Dockerfile
+    container_name: user_service
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DB_NAME=taskdb
+      - DB_USER=taskuser
+      - DB_PASSWORD=taskpassword
+      - DB_HOST=postgres
+      - DB_PORT=5432
+    depends_on:
+      - postgres
+    networks:
+      - task_network
+    volumes:
+      - ../user_service:/app
+
+  # ─────────────────────────────────────────
+  # TASK SERVICE — Django (CRUD Tasks)
+  # ─────────────────────────────────────────
+  task_service:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/task_service.Dockerfile
+    container_name: task_service
+    ports:
+      - "8001:8001"
+    environment:
+      - DEBUG=1
+      - DB_NAME=taskdb
+      - DB_USER=taskuser
+      - DB_PASSWORD=taskpassword
+      - DB_HOST=postgres
+      - DB_PORT=5432
+    depends_on:
+      - postgres
+    networks:
+      - task_network
+    volumes:
+      - ../task_service:/app
+
+  # ─────────────────────────────────────────
+  # FRONTEND — Nginx serving HTML/CSS/JS
+  # ─────────────────────────────────────────
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/frontend.Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - user_service
+      - task_service
+    networks:
+      - task_network
+
+  # ─────────────────────────────────────────
+  # POSTGRESQL — Database
+  # ─────────────────────────────────────────
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: taskuser
+      POSTGRES_PASSWORD: taskpassword
+      POSTGRES_DB: taskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - task_network
+
+# ─────────────────────────────────────────
+# NETWORK — All services talk to each other
+# ─────────────────────────────────────────
+networks:
+  task_network:
+    driver: bridge
+
+# ─────────────────────────────────────────
+# VOLUMES — Persistent database storage
+# ─────────────────────────────────────────
+volumes:
+  postgres_data:
