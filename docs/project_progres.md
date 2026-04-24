@@ -14,12 +14,15 @@
 - Harvinder: User Service health API added
 - Talha: Harvinder User Service work merged into `main`
 - Talha: Progress document added
+- Omer: Basic Django Task Service created
+- Omer: Task Service health API added
+- Talha: Omer Task Service work merged into `main`
 
 ------
 
 ## In Progress
 
-- Omer: Create basic Django Task Service
+- Jasvinder: Create basic React Frontend
 - Talha: Keep progress document updated
 
 ------
