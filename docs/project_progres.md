@@ -17,13 +17,17 @@
 - Omer: Basic Django Task Service created
 - Omer: Task Service health API added
 - Talha: Omer Task Service work merged into `main`
+- Jasvinder: Basic React Frontend created
+- Jasvinder: Frontend tested on port 3000
+- Talha: Jasvinder Frontend work merged into `main`
 
 ------
 
 ## In Progress
 
-- Jasvinder: Create basic React Frontend
+- Manav: Create basic testing setup
 - Talha: Keep progress document updated
+
 
 ------
 
