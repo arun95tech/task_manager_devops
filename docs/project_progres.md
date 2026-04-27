@@ -20,12 +20,19 @@
 - Jasvinder: Basic React Frontend created
 - Jasvinder: Frontend tested on port 3000
 - Talha: Jasvinder Frontend work merged into `main`
+- Manav: Create basic testing setup
+- Arun: User Service Dockerfile added
+- Arun: Task Service Dockerfile added
+- Arun: Frontend Dockerfile added
+- Arun: docker-compose.yml added
+- Arun: Docker Compose tested for all services
+- Talha: Arun Docker setup merged into `main`
 
 ------
 
 ## In Progress
 
-- Manav: Create basic testing setup
+- Arun: Prepare Jenkins pipeline setup
 - Talha: Keep progress document updated
 
 
