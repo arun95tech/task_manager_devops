@@ -33,12 +33,17 @@
 - Arun: Jenkins checked Docker Compose configuration
 - Talha: Arun Jenkins pipeline merged into `main`
 - Jenkins pipeline tested successfully from `main`
+- Arun: DockerHub repositories created
+- Arun: DockerHub credentials added in Jenkins
+- Arun: Jenkinsfile updated for DockerHub image push
+- Talha: DockerHub image push pipeline merged into `main`
+- Jenkins pipeline tested successfully from `main`
 
 ------
 
 ## In Progress
 
-- Arun: Prepare Docker image registry setup
+- Arun: Prepare Kubernetes deployment files
 - Talha: Keep progress document updated
 
 
