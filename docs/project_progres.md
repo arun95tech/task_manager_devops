@@ -38,12 +38,15 @@
 - Arun: Jenkinsfile updated for DockerHub image push
 - Talha: DockerHub image push pipeline merged into `main`
 - Jenkins pipeline tested successfully from `main`
+- Arun: Kind local Kubernetes cluster created
+- Arun: Kubernetes YAML files tested locally
+- Talha: Kubernetes deployment files merged into `main`
 
 ------
 
 ## In Progress
 
-- Arun: Prepare Kubernetes deployment files
+- Arun: Prepare AWS EKS deployment plan
 - Talha: Keep progress document updated
 
 
