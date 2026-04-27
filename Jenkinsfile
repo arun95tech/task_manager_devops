@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKERHUB_USERNAME = 'arun95tech'
+
+        USER_SERVICE_IMAGE = "${DOCKERHUB_USERNAME}/user-service:latest"
+        TASK_SERVICE_IMAGE = "${DOCKERHUB_USERNAME}/task-service:latest"
+        FRONTEND_IMAGE = "${DOCKERHUB_USERNAME}/frontend-service:latest"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -16,42 +24,69 @@ pipeline {
             }
         }
 
-        stage('Build User Service Docker Image') {
+        stage('Build User Service Image') {
             steps {
                 echo 'Building User Service Docker image...'
-                bat 'docker build -f docker/user_service.Dockerfile -t user-service:latest .'
+                bat 'docker build -f docker/user_service.Dockerfile -t %USER_SERVICE_IMAGE% .'
             }
         }
 
-        stage('Build Task Service Docker Image') {
+        stage('Build Task Service Image') {
             steps {
                 echo 'Building Task Service Docker image...'
-                bat 'docker build -f docker/task_service.Dockerfile -t task-service:latest .'
+                bat 'docker build -f docker/task_service.Dockerfile -t %TASK_SERVICE_IMAGE% .'
             }
         }
 
-        stage('Build Frontend Docker Image') {
+        stage('Build Frontend Image') {
             steps {
                 echo 'Building Frontend Docker image...'
-                bat 'docker build -f docker/frontend.Dockerfile -t frontend-service:latest .'
+                bat 'docker build -f docker/frontend.Dockerfile -t %FRONTEND_IMAGE% .'
             }
         }
 
-        stage('Docker Compose Check') {
+        stage('Docker Compose Config Check') {
             steps {
-                echo 'Checking Docker Compose configuration...'
+                echo 'Checking Docker Compose file...'
                 bat 'docker compose config'
+            }
+        }
+
+        stage('DockerHub Login') {
+            steps {
+                echo 'Logging in to DockerHub...'
+
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKERHUB_USER',
+                    passwordVariable: 'DOCKERHUB_PASS'
+                )]) {
+                    bat 'echo %DOCKERHUB_PASS% | docker login -u %DOCKERHUB_USER% --password-stdin'
+                }
+            }
+        }
+
+        stage('Push Images to DockerHub') {
+            steps {
+                echo 'Pushing User Service image...'
+                bat 'docker push %USER_SERVICE_IMAGE%'
+
+                echo 'Pushing Task Service image...'
+                bat 'docker push %TASK_SERVICE_IMAGE%'
+
+                echo 'Pushing Frontend image...'
+                bat 'docker push %FRONTEND_IMAGE%'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully.'
+            echo 'Pipeline completed successfully. Docker images pushed to DockerHub.'
         }
 
         failure {
-            echo 'Pipeline failed. Check the Jenkins console output.'
+            echo 'Pipeline failed. Check Jenkins console output.'
         }
     }
 }
