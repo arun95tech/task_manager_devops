@@ -27,12 +27,18 @@
 - Arun: docker-compose.yml added
 - Arun: Docker Compose tested for all services
 - Talha: Arun Docker setup merged into `main`
+- Arun: Jenkinsfile added
+- Arun: Jenkins pipeline configured
+- Arun: Jenkins connected to GitHub repository
+- Arun: Jenkins checked Docker Compose configuration
+- Talha: Arun Jenkins pipeline merged into `main`
+- Jenkins pipeline tested successfully from `main`
 
 ------
 
 ## In Progress
 
-- Arun: Prepare Jenkins pipeline setup
+- Arun: Prepare Docker image registry setup
 - Talha: Keep progress document updated
 
 
