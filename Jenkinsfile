@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USERNAME = 'arun95tech'
+        AWS_REGION = 'eu-west-2'
+        AWS_ACCOUNT_ID = '982479882677'
+        ECR_REGISTRY = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 
-        USER_SERVICE_IMAGE = "${DOCKERHUB_USERNAME}/user-service:latest"
-        TASK_SERVICE_IMAGE = "${DOCKERHUB_USERNAME}/task-service:latest"
-        FRONTEND_IMAGE = "${DOCKERHUB_USERNAME}/frontend-service:latest"
+        USER_SERVICE_IMAGE = "${ECR_REGISTRY}/user-service:latest"
+        TASK_SERVICE_IMAGE = "${ECR_REGISTRY}/task-service:latest"
+        FRONTEND_IMAGE = "${ECR_REGISTRY}/frontend-service:latest"
     }
 
     stages {
@@ -19,7 +21,7 @@ pipeline {
 
         stage('Show Project Files') {
             steps {
-                echo 'Showing project folder structure...'
+                echo 'Showing project files...'
                 bat 'dir'
             }
         }
@@ -45,45 +47,43 @@ pipeline {
             }
         }
 
-        stage('Docker Compose Config Check') {
+        stage('AWS ECR Login') {
             steps {
-                echo 'Checking Docker Compose file...'
-                bat 'docker compose config'
-            }
-        }
-
-        stage('DockerHub Login') {
-            steps {
-                echo 'Logging in to DockerHub...'
+                echo 'Logging in to AWS ECR...'
 
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'DOCKERHUB_USER',
-                    passwordVariable: 'DOCKERHUB_PASS'
+                    credentialsId: 'aws-credentials',
+                    usernameVariable: 'AWS_ACCESS_KEY_ID',
+                    passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                 )]) {
-                    bat 'docker logout'
-                    bat 'powershell -Command "$env:DOCKERHUB_PASS | docker login -u $env:DOCKERHUB_USER --password-stdin"'
+                    bat 'aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%'
+                    bat 'aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%'
+                    bat 'aws configure set default.region %AWS_REGION%'
+                    bat 'aws ecr get-login-password --region %AWS_REGION% | docker login --username AWS --password-stdin %ECR_REGISTRY%'
                 }
             }
         }
 
-        stage('Push Images to DockerHub') {
+        stage('Push Images to ECR') {
             steps {
-                echo 'Pushing User Service image...'
+                echo 'Pushing images to AWS ECR...'
                 bat 'docker push %USER_SERVICE_IMAGE%'
-
-                echo 'Pushing Task Service image...'
                 bat 'docker push %TASK_SERVICE_IMAGE%'
-
-                echo 'Pushing Frontend image...'
                 bat 'docker push %FRONTEND_IMAGE%'
+            }
+        }
+
+        stage('Docker Compose AWS Config Check') {
+            steps {
+                echo 'Checking AWS Docker Compose file...'
+                bat 'docker compose -f docker-compose.aws.yml config'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully. Docker images pushed to DockerHub.'
+            echo 'Pipeline completed successfully. Images pushed to AWS ECR.'
         }
 
         failure {
