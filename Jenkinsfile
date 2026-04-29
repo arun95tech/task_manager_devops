@@ -29,7 +29,7 @@ pipeline {
         stage('Check AWS CLI') {
             steps {
                 echo 'Checking AWS CLI installation...'
-                bat 'aws --version'
+                bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --version'
             }
         }
 
@@ -63,10 +63,10 @@ pipeline {
                     usernameVariable: 'AWS_ACCESS_KEY_ID',
                     passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                 )]) {
-                    bat 'aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%'
-                    bat 'aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%'
-                    bat 'aws configure set default.region %AWS_REGION%'
-                    bat 'aws ecr get-login-password --region %AWS_REGION% | docker login --username AWS --password-stdin %ECR_REGISTRY%'
+                    bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_access_key_id %AWS_ACCESS_KEY_ID%'
+                    bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%'
+                    bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set default.region %AWS_REGION%'
+                    bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" ecr get-login-password --region %AWS_REGION% | docker login --username AWS --password-stdin %ECR_REGISTRY%'
                 }
             }
         }
