@@ -38,15 +38,23 @@
 - Arun: Jenkinsfile updated for DockerHub image push
 - Talha: DockerHub image push pipeline merged into `main`
 - Jenkins pipeline tested successfully from `main`
-- Arun: Kind local Kubernetes cluster created
-- Arun: Kubernetes YAML files tested locally
-- Talha: Kubernetes deployment files merged into `main`
+- Talha: Final AWS workflow confirmed as EC2 + ECR + Docker Compose
+- Kubernetes/EKS moved to future scope
+- Arun: Final AWS workflow confirmed as EC2 + ECR + Docker Compose
+- Arun: `docker-compose.aws.yml` added for AWS EC2 deployment
+- Arun: AWS ECR repositories created
+- Arun: Jenkins AWS credentials configured
+- Arun: Jenkinsfile updated for AWS ECR image push
+- Arun: Jenkins AWS CLI check stage added
+- Arun: Jenkins successfully logged in to AWS ECR
+- Talha: AWS ECR pipeline merged into `main`
+- Jenkins pipeline tested successfully from `main`
 
 ------
 
 ## In Progress
 
-- Arun: Prepare AWS EKS deployment plan
+- Arun: Prepare EC2 Docker Compose deployment
 - Talha: Keep progress document updated
 
 
