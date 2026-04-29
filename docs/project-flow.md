@@ -16,6 +16,38 @@ Kubernetes Cluster: AWS EKS
    ↓
 Microservices Running: Pods + Services
 
+## Final AWS Deployment Choice
+
+The final AWS deployment strategy for this project is:
+
+Developer
+↓
+GitHub Repository
+↓
+Jenkins CI/CD Server on AWS EC2
+↓
+Docker Build
+↓
+AWS Elastic Container Registry
+↓
+EC2 pulls latest Docker images from ECR
+↓
+Docker Compose starts containers
+↓
+Application becomes accessible using EC2 public IP
+
+------
+
+## Reason for Choosing EC2 + ECR
+
+AWS ECR is selected as the container image registry because it integrates directly with AWS services and provides a more AWS-native deployment approach than DockerHub.
+
+EC2 with Docker Compose is selected for deployment because the project has multiple microservices and Docker Compose can run all services together in a simple and cost-controlled way.
+
+EKS was considered as a future production option, but it was not selected for the main live deployment because it can create higher ongoing costs and requires more advanced cluster management.
+
+------
+
 ## Team Roles
 
 - Talha → Project Manager
