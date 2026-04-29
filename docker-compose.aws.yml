@@ -1,0 +1,24 @@
+services:
+  user_service:
+    image: AWS_ACCOUNT_ID.dkr.ecr.eu-west-2.amazonaws.com/user-service:latest
+    container_name: user_service_container
+    ports:
+      - "8000:8000"
+    restart: always
+
+  task_service:
+    image: AWS_ACCOUNT_ID.dkr.ecr.eu-west-2.amazonaws.com/task-service:latest
+    container_name: task_service_container
+    ports:
+      - "8001:8001"
+    restart: always
+
+  frontend:
+    image: AWS_ACCOUNT_ID.dkr.ecr.eu-west-2.amazonaws.com/frontend-service:latest
+    container_name: frontend_container
+    ports:
+      - "80:80"
+    depends_on:
+      - user_service
+      - task_service
+    restart: always
