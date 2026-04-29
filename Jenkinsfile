@@ -26,6 +26,13 @@ pipeline {
             }
         }
 
+        stage('Check AWS CLI') {
+            steps {
+                echo 'Checking AWS CLI installation...'
+                bat 'aws --version'
+            }
+        }
+
         stage('Build User Service Image') {
             steps {
                 echo 'Building User Service Docker image...'
