@@ -49,13 +49,19 @@
 - Arun: Jenkins successfully logged in to AWS ECR
 - Talha: AWS ECR pipeline merged into `main`
 - Jenkins pipeline tested successfully from `main`
+- Arun: AWS EC2 instance launched for deployment
+- Arun: SSH connection to EC2 tested successfully
+- Arun: Docker, Docker Compose, AWS CLI installed on EC2
+- Arun: EC2 successfully logged in to AWS ECR
+- Arun: tested successfully using EC2 public IP
+- Arun: Django `ALLOWED_HOSTS` issue fixed for EC2 deployment
+
 
 ------
 
 ## In Progress
 
-- Arun: Prepare EC2 Docker Compose deployment
-- Talha: Keep progress document updated
+- Manav: Prepare final test report and evidence summary
 
 
 ------
