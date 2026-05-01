@@ -55,6 +55,10 @@
 - Arun: EC2 successfully logged in to AWS ECR
 - Arun: tested successfully using EC2 public IP
 - Arun: Django `ALLOWED_HOSTS` issue fixed for EC2 deployment
+- Arun: Jenkins installed and configured on AWS EC2
+- Arun: Jenkins on EC2 deploys containers using Docker Compose
+- Arun: Frontend tested using EC2 public IP
+- Arun: User Service and Task Service health APIs tested
 
 
 ------
