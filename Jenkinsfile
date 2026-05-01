@@ -98,8 +98,13 @@ pipeline {
                 echo 'Deploying latest containers on EC2...'
                 sh '''
                     docker compose -f docker-compose.aws.yml pull
-                    docker compose -f docker-compose.aws.yml down
+
+                    docker compose -f docker-compose.aws.yml down || true
+
+                    docker rm -f user_service_container task_service_container frontend_container || true
+
                     docker compose -f docker-compose.aws.yml up -d
+
                     docker ps
                 '''
             }
