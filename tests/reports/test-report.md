@@ -57,15 +57,16 @@ Application accessible using EC2 public IP
 
 ## Test Summary
 
-| Test Area                  | Result |
-| Jenkins pipeline execution | Passed |
-| Docker image build         | Passed |
-| Push images to AWS ECR     | Passed |
-| Pull images on EC2         | Passed |
-| Docker Compose deployment  | Passed |
-| Frontend public access     | Passed |
-| User Service health API    | Passed |
-| Task Service health API    | Passed |
+| Test Area                                 | Result |
+| Jenkins pipeline execution                | Passed |
+| Docker image build                        | Passed |
+| Push images to AWS ECR                    | Passed |
+| Pull images on EC2                        | Passed |
+| Docker Compose deployment                 | Passed |
+| Frontend public access                    | Passed |
+| User Service health API                   | Passed |
+| Task Service health API                   | Passed |
+| GitHub webhook automatic Jenkins trigger  | Passed |
 
 ------
 
@@ -84,3 +85,9 @@ The Task Management System deployment was tested successfully.
 The frontend was accessible using the EC2 public IP.
 
 Both backend health endpoints were tested successfully.
+
+## Webhook Automation Test
+
+GitHub webhook automation was tested successfully.
+
+A push to the main branch automatically triggered the Jenkins pipeline running on AWS EC2.
