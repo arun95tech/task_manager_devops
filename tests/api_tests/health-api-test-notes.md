@@ -1,6 +1,17 @@
 # Health API Test Notes
 
-This document records basic health API testing for the User Service and Task Service.
+This document records basic health API testing for the deployed Task Management System on AWS EC2.
+
+------
+
+## Test Environment
+
+| Item | Details |
+|---|---|
+| Cloud Provider | AWS |
+| Server | EC2 Ubuntu |
+| Public Address | `13.134.167.75` |
+| Testing Type | Manual API and browser testing |
 
 ------
 
@@ -8,35 +19,78 @@ This document records basic health API testing for the User Service and Task Ser
 
 ### Request
 
+```http
+GET http://13.134.167.75:8000/api/health/
+```
 
-GET http://127.0.0.1:8000/api/health/ 
+### Expected Response
 
-### Response
-
+```json
 {
-  "service": "user_service",
-  "status": "running"
+  "status": "ok",
+  "service": "user_service"
 }
+```
 
-### Test 2: Task Service Health API
+### Result
 
-### request
+Passed
 
-GET http://127.0.0.1:8001/api/health/
+------
 
-### Response
+## Test 2: Task Service Health API
 
+### Request
+
+```http
+GET http://13.134.167.75:8001/api/health/
+```
+
+### Expected Response
+
+```json
 {
-  "service": "task_service",
-  "status": "running"
+  "status": "ok",
+  "service": "task_service"
 }
+```
 
-### Test Frontend
+### Result
 
-### url
+Passed
 
-http://localhost:3000/
+------
 
-### Response
+## Test 3: Frontend Access
+
+### URL
+
+```text
+http://13.134.167.75/
+```
+
+### Expected Result
 
 Task Management System page opens successfully.
+
+### Result
+
+Passed
+
+------
+
+## Test 4: Jenkins Pipeline Job
+
+### URL
+
+```text
+http://13.134.167.75:8080/job/task-management-system-pipeline/
+```
+
+### Expected Result
+
+Jenkins pipeline job opens successfully and shows the CI/CD build history.
+
+### Result
+
+Passed
