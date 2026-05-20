@@ -59,6 +59,25 @@
 - Arun: Jenkins on EC2 deploys containers using Docker Compose
 - Arun: Frontend tested using EC2 public IP
 - Arun: User Service and Task Service health APIs tested
+- Arun: Old container conflict fixed before EC2 deployments
+- Arun: Jenkins pipeline converted for EC2 Linux server
+- Arun: Final AWS deployment fixes added
+- Arun: CORS enabled for frontend API calls
+- Arun: Django migrations run automatically on container startup
+- Harvinder: User register API added
+- Harvinder: User login API added
+- Omer: Task CRUD API added
+- Jasvinder: Task Manager frontend UI completed
+- Talha: User register and login APIs merged into `main`
+- Talha: Final deployment progress documentation updated
+- Talha: GitHub webhook trigger documentation added
+- Manav: Final deployment testing documentation added
+- Manav: GitHub webhook automation evidence added
+- GitHub webhook tested successfully
+- Push to `main` automatically triggers Jenkins pipeline
+- Jenkins automatically builds Docker images, pushes to AWS ECR, and deploys on EC2
+- Frontend, User Service, and Task Service confirmed running from AWS Elastic IP `13.134.167.75`
+- Jenkins pipeline job confirmed at `http://13.134.167.75:8080/job/task-management-system-pipeline/`
 
 
 ------
@@ -66,6 +85,7 @@
 ## In Progress
 
 - Manav: Prepare final test report and evidence summary
+- Team: Prepare tutor demonstration using GitHub commits, Jenkins pipeline, Docker containers, AWS ECR, EC2 deployment, and API test evidence
 
 
 ------
