@@ -1,5 +1,10 @@
+const envUserServiceUrl = import.meta.env.VITE_USER_SERVICE_URL;
+const isLocalFrontend = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
 const USER_SERVICE_URL =
-  import.meta.env.VITE_USER_SERVICE_URL || "http://127.0.0.1:8000";
+  envUserServiceUrl && (isLocalFrontend || !envUserServiceUrl.includes("127.0.0.1"))
+    ? envUserServiceUrl
+    : `http://${window.location.hostname}:8000`;
 
 async function request(path, options = {}) {
   const response = await fetch(`${USER_SERVICE_URL}${path}`, {
