@@ -1,5 +1,10 @@
+const envTaskServiceUrl = import.meta.env.VITE_TASK_SERVICE_URL;
+const isLocalFrontend = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
 const TASK_SERVICE_URL =
-  import.meta.env.VITE_TASK_SERVICE_URL || "http://127.0.0.1:8001";
+  envTaskServiceUrl && (isLocalFrontend || !envTaskServiceUrl.includes("127.0.0.1"))
+    ? envTaskServiceUrl
+    : `http://${window.location.hostname}:8001`;
 
 async function request(path, options = {}) {
   const response = await fetch(`${TASK_SERVICE_URL}${path}`, {
