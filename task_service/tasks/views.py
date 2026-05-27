@@ -8,7 +8,7 @@ from .serializers import TaskSerializer
 
 @api_view(["GET"])
 def health_check(request):
-        return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+    return Response({"status": "ok", "service": "task_service"})
 
 
 @api_view(["GET", "POST"])
@@ -55,5 +55,5 @@ def task_detail(request, task_id):
     task.delete()
     return Response(
         {"message": "Task deleted successfully"},
-        status=status.HTTP_204_NO_CONTENT,
+        status=status.HTTP_200_OK,
     )
